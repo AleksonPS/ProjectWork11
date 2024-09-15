@@ -11,9 +11,18 @@ pipeline {
         }
         stage('Build Nginx Container') {
             steps {
-                // Поднимаем контейнер с nginx
-                sh 'docker run -d --name nginx -p 9889:80 nginx'
-                sh 'docker cp index.html nginx:/usr/share/nginx/html/index.html'
+                script {
+                    // Проверяем, существует ли контейнер
+                    def containerExists = sh(script: 'docker ps -q -f name=nginx', returnStdout: true).trim()
+                    if (containerExists) {
+                        sh 'docker stop nginx'
+                        sh 'docker rm nginx'
+                    }                    
+                    // Запускаем новый контейнер
+                    sh 'docker run -d --name nginx -p 9889:80 nginx'                    
+                    // Копируем файл в контейнер
+                    sh 'docker cp index.html nginx:/usr/share/nginx/html/index.html'
+                }
             }
         }
         stage('Test HTTP Response') {
