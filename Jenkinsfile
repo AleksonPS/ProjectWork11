@@ -5,7 +5,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Забираем изменения из GitHub
-                git 'https://github.com/AleksonPS/ProjectWork11'
+                //git 'https://github.com/AleksonPS/ProjectWork11'
+                git url: 'https://github.com/AleksonPS/ProjectWork11.git', branch: 'main'
             }
         }
         stage('Build Nginx Container') {
