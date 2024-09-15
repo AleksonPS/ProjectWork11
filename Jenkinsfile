@@ -39,6 +39,13 @@ pipeline {
                 }
             }
         }
+        stage('Cleanup') {
+            steps {
+                // Удаляем контейнер
+                sh 'docker stop nginx'
+                sh 'docker rm nginx'
+            }
+        }
     }
     post {
         failure {
