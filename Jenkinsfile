@@ -49,11 +49,11 @@ pipeline {
     }
     post {
         failure {
-            sh 'echo "JOB_NAME=${env.JOB_NAME}"'
-            sh 'echo "BUILD_NUMBER=${env.BUILD_NUMBER}"'
-            sh '''curl -X POST "https://api.telegram.org/bot7527884363:AAGeLu13rQoJ36FVy8HF_phkjYYUOJpkF28/sendMessage" \
-                 -d "chat_id=113966457" \
-                 -d "text=Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}"'''
+            sh '''#!/bin/bash
+                curl -X POST "https://api.telegram.org/bot7527884363:AAGeLu13rQoJ36FVy8HF_phkjYYUOJpkF28/sendMessage" \
+                -d "chat_id=113966457" \
+                -d "text=Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                '''
         }
-}
+    }
 }
