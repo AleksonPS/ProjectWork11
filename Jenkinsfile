@@ -52,7 +52,7 @@ pipeline {
             sh '''#!/bin/bash
                 curl -X POST "https://api.telegram.org/bot7527884363:AAGeLu13rQoJ36FVy8HF_phkjYYUOJpkF28/sendMessage" \
                 -d "chat_id=113966457" \
-                -d "text=Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+                -d "text=Build Failed: ${JOB_NAME} #${BUILD_NUMBER}"
                 '''
         }
     }
