@@ -49,12 +49,7 @@ pipeline {
     }
     post {
         failure {
-            script {
-                def result = sh(script: 'curl -X POST "https://api.telegram.org/bot7527884363:AAGeLu13rQoJ36FVy8HF_phkjYYUOJpkF28/sendMessage" -d chat_id=113966457 -d text="Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}"', returnStatus: true)
-                if (result != 0) {
-                    echo "Curl command failed with status ${result}"
-                }
-            }
+            sh 'bash -c "curl -X POST \\"https://api.telegram.org/bot7527884363:AAGeLu13rQoJ36FVy8HF_phkjYYUOJpkF28/sendMessage\\" -d \\"chat_id=113966457\\" -d \\"text=Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}\\""'
         }
     }
 }
