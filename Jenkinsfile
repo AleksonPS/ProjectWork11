@@ -49,10 +49,8 @@ pipeline {
     }
     post {
         failure {
-            // Уведомления в случае ошибки
-            mail to: 'alekson.ps@gmaile.com',
-                subject: "Build Failed in Jenkins",
-                body: "The build failed in stage ${STAGE_NAME}. Please check Jenkins logs."
+            // Уведомления в случае ошибки через Telegram.
+            sh 'curl -X POST "https://api.telegram.org/bot7527884363:AAGeLu13rQoJ36FVy8HF_phkjYYUOJpkF28/sendMessage" -d chat_id=113966457 -d text="Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}"'
         }
     }
 }
